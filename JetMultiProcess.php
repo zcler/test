@@ -23,8 +23,8 @@ class JetMultiProcess {
      * @param int $size 最大子进程数量
      * @param $producer 需要创建的消费者类名
      */
-    public function __construct($producer, $worker, $size=10){
-        $this->producer = new $producer;
+    public function __construct($producer, $worker, $size=5){
+        $this->producer = $producer;
         $this->worker = $worker;
         $this->size = $size;
         $this->curSize = 0;
@@ -46,8 +46,7 @@ class JetMultiProcess {
                         $this->curSize--;
                     }
                 } else {// worker
-                    $worker = new $this->worker;
-                    $worker->run();
+                    $this->worker->run();
                     exit();
                 }
             }
